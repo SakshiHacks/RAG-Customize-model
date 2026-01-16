@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Info Chatbot</title>
+</head>
+<body>
+    <h2>Ask College Information</h2>
+
+    <input id="question" type="text" placeholder="Ask a question" />
+    <button onclick="ask()">Ask</button>
+
+    <p id="answer"></p>
+
+    <script>
+        async function ask() {
+            const question = document.getElementById("question").value;
+
+            const response = await fetch("http://127.0.0.1:5000/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question })
+            });
+
+            const data = await response.json();
+            document.getElementById("answer").innerText = data.answer;
+        }
+    </script>
+</body>
+</html>
